@@ -1,0 +1,141 @@
+[[set . "title" "Home"]]
+[[template "header.html" .]]
+
+<div class="container">
+	<header id="header">
+		<h1>Shop Item Registration</h1>
+	</header><!-- /header -->
+
+	<div class="row-fluid">
+		<div>
+			<div>
+				<h2>User: [[.username]]</h2>
+				<form action="/api/v1/items/registration" method="POST" enctype="multipart/form-data" accept-charset="utf-8">
+
+					<!--
+						Left side object
+					-->
+					<div class="pull-left">
+						<!-- Airport list -->
+		        <div class="form-group">
+		          <label><strong>Airport Name</strong></label>
+		          <select name="airport">
+		            [[range $index, $name := .airportNameList]]
+		              <option value=[[$index]]>[[$name]]</option>
+		            [[end]]
+		           </select> 
+		        </div>
+
+						<!--Shop Name -->
+						<div class="form-group">
+							<label><strong>Shop Name</strong> </label>
+							<input type="text" 
+										class="form-control" 
+										name="name" 
+										value="" 
+										placeholder="Shop Name">
+						</div>
+
+						<!-- Terminal infomation for Shop -->
+						<div class="form-group">
+							<label><strong>Terminal</strong> </label>
+							<input type="text" 
+										class="form-control" 
+										name="terminal" 
+										value="" 
+										placeholder="Terminal">
+						</div>
+
+						<!--Shop floor info -->
+						<div class="form-group">
+							<label><strong>Floor Number</strong> </label>
+							<input type="number" 
+										class="form-control" 
+										name="floor" 
+										value="" 
+										placeholder="floor info">
+						</div>
+
+						<!-- Shop Comment -->
+						<div class="form-group">
+							<label><strong>Comment</strong></label>
+							<textarea class="form-control"
+											name="comment"
+											placeholder="A Comment of Airport shop item"
+											rows=3
+											></textarea>
+						</div>
+
+						<!--Shop Photo image -->
+						<div class="form-group">
+							<input type="file" name="imageFile" value="" placeholder=""> 
+						</div><!--/form-group-->
+					</div><!--/span6-->
+
+					<!--
+						Right side object
+					-->
+					<div class="pull-right">
+						<div class="form-group">
+						<label><strong>Item List</strong></label>
+							<textarea class="form-control" 
+											name="itemlist"
+											rows=16
+											cols=40 
+											placeholder="ItemName-price"></textarea>
+						</div>
+					</div><!--/span6 -->
+
+
+					<!--
+						Registration Button
+					-->
+					<button type="submit" class="btn btn-primary btn-block">Upload</button>
+				</form>
+			</div>
+
+			<div class="pannel pannel-default">
+				<div class="pannel-heading">
+					<h2>Airport Shops</h2>
+				</div>
+				<table class="table table-hover">
+					<caption>Details of Airport Shops</caption>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>IATA</th>
+							<th>Airport</th>
+							<th>Terminal</th>
+							<th>Floor</th>
+							<th>Comment</th>
+							<th>Edit</th>
+						</tr>
+					</thead>
+					<tbody>
+						[[range $index, $obj := .shopitemlist]]
+						<tr>
+							<td>[[$index]]</td>
+							<td>[[$obj.AirportInfo.AirportCode.IATA]]</td>
+							<td>[[$obj.AirportInfo.AirportName.EnName]]</td>
+							<td>[[$obj.Terminal]]</td>
+							<td>[[$obj.Floor]]</td>
+							<td>[[$obj.Comment]]</td>
+							[[$uuid :=$obj.Uuid]]
+							<td>
+								<a href="/api/v1/items/[[$uuid]]"]>Edit</a> 	  
+							</td>
+						</tr>
+						[[end]]
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="link">
+			<h2>Links</h2>
+			<a href="/api/v1/users" title="Main Page">Main Page</a>
+		</div>
+	</div><!--/row-->
+</div><!--/container-->
+
+[[template "footer.html" .]]

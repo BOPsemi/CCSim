@@ -1,0 +1,116 @@
+[[set . "title" "Home"]]
+[[template "header.html" .]]
+
+<!-- extract values  -->
+[[$airport := .shopitem.AirportInfo.AirportName.EnName]]
+[[$shopname := .shopitem.Shopname]]
+[[$terminal := .shopitem.Terminal]]
+[[$floor := .shopitem.Floor]]
+[[$comment := .shopitem.Comment]]
+[[$itemlist := .itemlist]]
+[[$uuid := .shopitem.Uuid]]
+
+
+
+<div class="container">
+	<header id="header">
+		<h1>[[$shopname]]</h1>
+	</header><!-- /header -->
+	
+	<div class="row-fluid">
+		<div class="span6">
+			<form action="/api/v1/items/update" 
+						method="POST" 
+						enctype="multipart/form-data" 
+						accept-charset="utf-8">
+
+				<!-- hidden information -->
+				<div>
+					<input type="hidden"
+								 name="uuid"
+								 value=[[$uuid]]>
+
+				</div>
+
+				<!-- left side form -->
+				<div class="pull-left">
+					<!-- Shop Name -->
+					<h3>[[$airport]]</h3>
+
+					<!-- Shop Name -->
+					<div class="form-group">
+						<label><strong>Shop Name</strong></label>
+						<input type="text" 
+										class="form-control" 
+										name="name" 
+										value=[[$shopname]] 
+										placeholder="Shop Name">
+					</div>
+
+					<!-- Terminal information for shop -->
+					<div class="form-group">
+						<label><strong>Terminal</strong></label>
+						<input type="text" 
+										class="form-control" 
+										name="terminal" 
+										value=[[$terminal]] 
+										placeholder="Terminal">
+					</div>
+
+					<!-- Shop Floor information -->
+					<div class="form-group">
+						<label><strong>Floor Number</strong></label>
+						<input type="number" 
+										class="form-control" 
+										name="floor" 
+										value=[[$floor]] 
+										placeholder="Floor Info.">
+					</div>
+
+					<!-- Comment for Shop -->
+					<div class="form-group">
+						<label><strong>Comment</strong></label>
+						<textarea class="form-control"
+											name="comment"
+											placeholder="A Comment of Airport shop"
+											rows=3
+											>[[$comment]]</textarea>
+					</div>					
+				</div><!-- /pull-left -->
+
+				<!-- Right side form -->
+				<div class="pull-right">
+					<div class="form-group">
+						<label><strong>Shop Items</strong></label>
+						<textarea class="form-control"
+											name="itemlist"
+											rows=16
+											cols=40>[[$itemlist]]</textarea>
+					</div>
+				</div><!-- /pull-left -->
+
+				<!--
+						Update Button
+				-->
+				<button type="submit" 
+								name="button" 
+								value="update" 
+								class="btn btn-primary btn-block">Update</button>
+								
+				<button type="submit" 
+								name="button" 
+								value="delete" 
+								class="btn btn-default btn-block">Delete</button>
+			</form>
+
+			<div>
+				<br>
+				<h2>Links</h2>
+				<a href="/api/v1/users" title="Back">Back To Main Page</a>
+			</div>
+		</div><!-- /main -->
+	</div><!-- /row -->
+</div> <!--/container-->
+
+
+[[template "footer.html" .]]

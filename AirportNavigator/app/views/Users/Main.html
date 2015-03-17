@@ -1,0 +1,35 @@
+[[set . "title" "Home"]]
+[[template "header.html" .]]
+
+<div class="container">
+	<header id="header">
+		<h1>Main Page</h1> 	
+	</header><!-- /header -->
+
+	<div class="row">
+		<div class="maintopics">
+
+			<!-- Jump to item registation page -->
+			<form action="/api/v1/users" method="POST" accept-charset="utf-8">
+				<div class="form-group">
+					<label for="registration">Jump To Shop Item Registration Page</label>
+					<button id="registration" 
+									type="submit" 
+									class="btn btn-default">Jump</button>
+				</div>
+			</form>
+
+			<!-- Jump to item Login Page-->
+			<form action="/" method="GET" accept-charset="utf-8">
+				<label for="back">Back to Top Page</label>
+				<button id="back"
+								type="submit"
+								class="btn btn-default">Top</button>
+			</form>
+		</div> <!-- /maintopics -->
+	</div> <!-- /row -->
+	
+</div><!-- /container -->
+
+
+[[template "footer.html" .]]
